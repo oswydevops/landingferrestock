@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Al Lado · Compra y vende cerca de ti</title>
+<meta name="description" content="Al Lado es el marketplace de tu barrio: encuentra tiendas y productos cercanos, compra por WhatsApp, vende y promociona tu negocio. Descarga la app para Android.">
+<meta name="theme-color" content="#0B1B3A">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23007AFF'/%3E%3Cpath d='M32 12a14 14 0 0 0-14 14c0 10 14 26 14 26s14-16 14-26A14 14 0 0 0 32 12zm0 19a5 5 0 1 1 0-10 5 5 0 0 1 0 10z' fill='%23fff'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   1. TOKENS
+   ========================================================= */
+:root{
+  --blue:#007AFF;
+  --blue-dark:#0A5FD4;
+  --navy:#0B1B3A;
+  --navy-2:#12285A;
+  --orange:#FF6B35;
+  --orange-soft:#FFF0E6;
+  --teal:#0D9488;
+  --green:#34C759;
+  --bg:#F2F2F7;
+  --surface:#FFFFFF;
+  --ink:#1C1C1E;
+  --ink-2:#5B5B63;
+  --line:#E5E5EA;
+
+  --r-sm:12px;
+  --r-md:20px;
+  --r-lg:28px;
+  --shadow:0 18px 40px -18px rgba(11,27,58,.35);
+  --wrap:1120px;
+  --font:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);
+  line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;
+}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+h1,h2,h3,p{margin:0}
+ul{margin:0;padding:0;list-style:none}
+.wrap{width:min(100% - 2.5rem,var(--wrap));margin-inline:auto}
+:focus-visible{outline:3px solid var(--orange);outline-offset:3px;border-radius:8px}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+section[id]{scroll-margin-top:84px}
+
+/* =========================================================
+   3. BOTONES
+   ========================================================= */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:.6rem;
+  min-height:52px;padding:0 1.6rem;border-radius:16px;border:2px solid transparent;
+  font:700 1rem/1 var(--font);cursor:pointer;
+  transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+}
+.btn:active{transform:scale(.97)}
+.btn svg{width:20px;height:20px}
+.btn-primary{background:var(--blue);color:#fff;box-shadow:0 10px 24px -10px var(--blue)}
+.btn-primary:hover{background:var(--blue-dark);transform:translateY(-2px)}
+.btn-ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--blue);color:var(--blue)}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 10px 24px -10px var(--orange)}
+.btn-orange:hover{transform:translateY(-2px)}
+
+/* =========================================================
+   4. CABECERA (menú móvil sin JS: checkbox)
+   ========================================================= */
+.topbar{background:var(--navy);color:#fff;font-size:.82rem;text-align:center;padding:.55rem 1rem}
+.topbar b{color:var(--orange)}
+header{
+  position:sticky;top:0;z-index:50;background:rgba(242,242,247,.88);
+  backdrop-filter:saturate(1.4) blur(14px);-webkit-backdrop-filter:saturate(1.4) blur(14px);
+  border-bottom:1px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:.6rem;font-weight:800;font-size:1.3rem;letter-spacing:-.02em}
+.logo svg{width:38px;height:38px}
+.menu-toggle{display:none}
+.burger{display:none;width:44px;height:44px;border-radius:12px;align-items:center;justify-content:center;cursor:pointer}
+.burger span,.burger span::before,.burger span::after{
+  display:block;width:22px;height:2.5px;background:var(--ink);border-radius:2px;position:relative;transition:.25s;
+}
+.burger span::before,.burger span::after{content:"";position:absolute;left:0}
+.burger span::before{top:-7px}.burger span::after{top:7px}
+.links{display:flex;align-items:center;gap:1.8rem;font-weight:600;font-size:.95rem}
+.links a:not(.btn){color:var(--ink-2);transition:color .2s}
+.links a:not(.btn):hover{color:var(--blue)}
+.links .btn{min-height:44px;padding:0 1.2rem;font-size:.92rem}
+
+@media (max-width:860px){
+  .burger{display:flex}
+  .links{
+    position:absolute;inset:68px 0 auto 0;flex-direction:column;align-items:stretch;gap:0;
+    background:var(--surface);border-bottom:1px solid var(--line);
+    max-height:0;overflow:hidden;transition:max-height .35s ease;
+  }
+  .links a{padding:1rem 1.5rem;border-top:1px solid var(--line)}
+  .links .btn{margin:1rem 1.5rem 1.2rem;border-top:0}
+  .menu-toggle:checked ~ .links{max-height:440px}
+  .menu-toggle:checked + .burger span{background:transparent}
+  .menu-toggle:checked + .burger span::before{top:0;transform:rotate(45deg)}
+  .menu-toggle:checked + .burger span::after{top:0;transform:rotate(-45deg)}
+}
+
+/* =========================================================
+   5. HERO
+   ========================================================= */
+.hero{padding:3rem 0 4rem;position:relative;overflow:hidden}
+.hero::before{
+  content:"";position:absolute;right:-12%;top:-10%;width:640px;height:640px;border-radius:50%;
+  background:radial-gradient(circle,rgba(0,122,255,.22),transparent 68%);z-index:-1;
+}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:2rem;align-items:center}
+.pill{
+  display:inline-flex;align-items:center;gap:.5rem;background:var(--surface);border:1px solid var(--line);
+  border-radius:999px;padding:.4rem .9rem;font-size:.82rem;font-weight:600;color:var(--ink-2);
+}
+.pill i{width:8px;height:8px;border-radius:50%;background:var(--green);animation:pulse 1.8s infinite}
+h1{font-size:clamp(2.2rem,6.2vw,3.9rem);line-height:1.04;letter-spacing:-.035em;font-weight:800;margin:1.1rem 0}
+h1 em{font-style:normal;color:var(--blue)}
+.lead{font-size:1.1rem;color:var(--ink-2);max-width:34rem}
+.cta-row{display:flex;flex-wrap:wrap;gap:.8rem;margin:1.8rem 0 1.6rem}
+.trust{display:flex;flex-wrap:wrap;gap:.6rem 1.4rem;font-size:.85rem;font-weight:600;color:var(--ink-2)}
+.trust li{display:flex;align-items:center;gap:.45rem}
+.trust svg{width:18px;height:18px;color:var(--blue)}
+
+/* Teléfono */
+.stage{position:relative;display:grid;place-items:center;min-height:560px}
+.blob{
+  position:absolute;width:86%;aspect-ratio:1;border-radius:42% 58% 55% 45%/48% 42% 58% 52%;
+  background:linear-gradient(145deg,var(--blue),var(--navy-2));animation:morph 12s ease-in-out infinite;
+}
+.phone{
+  position:relative;width:min(280px,72vw);aspect-ratio:9/18.5;background:#0a0a0c;border-radius:42px;
+  padding:10px;box-shadow:0 40px 70px -25px rgba(0,0,0,.55);transform:rotate(-4deg);
+  animation:float 6s ease-in-out infinite;
+}
+.phone::before{content:"";position:absolute;top:18px;left:50%;translate:-50% 0;width:70px;height:20px;background:#0a0a0c;border-radius:12px;z-index:3}
+.screen{height:100%;border-radius:33px;background:var(--bg);overflow:hidden;position:relative;display:flex;flex-direction:column}
+.s-head{background:var(--blue);color:#fff;padding:2.4rem 1rem .9rem;border-radius:0 0 22px 22px}
+.s-head small{opacity:.8;font-size:.62rem}
+.s-head strong{display:block;font-size:.95rem}
+.s-search{margin-top:.6rem;background:#fff;border-radius:12px;padding:.45rem .7rem;font-size:.62rem;color:var(--ink-2)}
+.s-body{padding:.8rem;display:grid;gap:.6rem;flex:1;align-content:start}
+.s-title{font-size:.7rem;font-weight:800}
+.s-card{background:#fff;border-radius:14px;padding:.5rem;display:flex;gap:.5rem;align-items:center;box-shadow:0 4px 12px -8px #000}
+.s-ico{width:36px;height:36px;border-radius:10px;display:grid;place-items:center;font-size:1rem;flex:none}
+.s-card b{font-size:.64rem;display:block}
+.s-card span{font-size:.56rem;color:var(--ink-2)}
+.s-price{margin-left:auto;font-size:.62rem;font-weight:800;color:var(--teal)}
+.s-ad{background:linear-gradient(120deg,var(--orange),#F97316);color:#fff;border-radius:14px;padding:.6rem;font-size:.6rem}
+.s-ad b{display:block;font-size:.7rem}
+.s-nav{display:flex;justify-content:space-around;padding:.55rem 0 .7rem;background:#fff;font-size:.9rem}
+
+/* Tarjetas flotantes */
+.chip{
+  position:absolute;background:var(--surface);border-radius:16px;padding:.65rem .9rem;box-shadow:var(--shadow);
+  display:flex;align-items:center;gap:.6rem;font-size:.78rem;font-weight:700;z-index:4;
+}
+.chip small{display:block;font-weight:500;color:var(--ink-2);font-size:.68rem}
+.chip .dot{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:1rem}
+.chip.a{left:0;top:18%;animation:float 5s ease-in-out infinite .4s}
+.chip.b{right:-2%;bottom:16%;animation:float 5.5s ease-in-out infinite 1s}
+
+/* Entrada de página (un solo momento orquestado) */
+.hero .pill,.hero h1,.hero .lead,.hero .cta-row,.hero .trust{animation:rise .8s cubic-bezier(.2,.8,.2,1) both}
+.hero h1{animation-delay:.08s}.hero .lead{animation-delay:.16s}
+.hero .cta-row{animation-delay:.24s}.hero .trust{animation-delay:.32s}
+
+@media (max-width:860px){
+  .hero{padding-top:2rem}
+  .hero-grid{grid-template-columns:1fr}
+  .stage{min-height:480px;order:2}
+  .chip.a{left:-2%}.chip.b{right:-2%}
+}
+
+/* =========================================================
+   6. SECCIONES GENERALES
+   ========================================================= */
+section{padding:4.5rem 0}
+.head{max-width:40rem;margin-bottom:2.6rem}
+.head.center{margin-inline:auto;text-align:center}
+h2{font-size:clamp(1.7rem,4.2vw,2.5rem);line-height:1.1;letter-spacing:-.03em;font-weight:800}
+.head p{margin-top:.8rem;color:var(--ink-2);font-size:1.05rem}
+
+/* Problemas */
+.problems{background:var(--surface)}
+.p-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem}
+.p-item{padding:1.4rem;border-radius:var(--r-md);background:var(--bg)}
+.p-item .ico{font-size:1.6rem;margin-bottom:.6rem}
+.p-item h3{font-size:1.05rem;margin-bottom:.3rem}
+.p-item p{color:var(--ink-2);font-size:.93rem}
+
+/* =========================================================
+   7. MÓDULOS
+   ========================================================= */
+.modules{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
+.mod{
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--r-lg);padding:1.6rem;
+  display:flex;flex-direction:column;gap:.9rem;transition:transform .25s,box-shadow .25s,border-color .25s;
+}
+.mod:hover{transform:translateY(-6px);box-shadow:var(--shadow);border-color:transparent}
+.mod-top{display:flex;align-items:center;gap:.8rem}
+.mod .badge{width:50px;height:50px;border-radius:16px;display:grid;place-items:center;font-size:1.5rem;flex:none}
+.mod h3{font-size:1.2rem;letter-spacing:-.01em}
+.mod > p{color:var(--ink-2);font-size:.95rem}
+.mod ul{display:grid;gap:.45rem;font-size:.9rem}
+.mod li{display:flex;gap:.55rem}
+.mod li::before{content:"✓";font-weight:800;color:var(--teal);flex:none}
+.tag{margin-top:auto;align-self:flex-start;font-size:.78rem;font-weight:700;padding:.3rem .7rem;border-radius:999px;background:var(--orange-soft);color:#B8431A}
+.b-blue{background:#E5F1FF}.b-orange{background:var(--orange-soft)}.b-teal{background:#DDF5F2}.b-green{background:#E3F8E8}.b-navy{background:#E4E9F5}.b-yellow{background:#FFF4D6}
+
+/* =========================================================
+   8. FLUJOS (pestañas sin JS: radios)
+   ========================================================= */
+.flows{background:var(--navy);color:#fff}
+.flows .head p{color:#B8C4E0}
+.tabs{display:grid;gap:1.4rem}
+.tabs input{position:absolute;opacity:0;pointer-events:none}
+.tab-nav{display:flex;gap:.5rem;overflow-x:auto;padding-bottom:.3rem;scrollbar-width:none}
+.tab-nav::-webkit-scrollbar{display:none}
+.tab-nav label{
+  flex:none;padding:.7rem 1.2rem;border-radius:999px;font-weight:700;font-size:.92rem;cursor:pointer;
+  background:rgba(255,255,255,.08);color:#CBD5EE;transition:.2s;
+}
+.tab-nav label:hover{background:rgba(255,255,255,.16)}
+.panel{display:none;animation:rise .5s both}
+#t1:checked ~ .tab-nav label[for=t1],
+#t2:checked ~ .tab-nav label[for=t2],
+#t3:checked ~ .tab-nav label[for=t3],
+#t4:checked ~ .tab-nav label[for=t4]{background:var(--orange);color:#fff}
+#t1:checked ~ .panels #p1,#t2:checked ~ .panels #p2,#t3:checked ~ .panels #p3,#t4:checked ~ .panels #p4{display:block}
+#t1:focus-visible ~ .tab-nav label[for=t1],#t2:focus-visible ~ .tab-nav label[for=t2],
+#t3:focus-visible ~ .tab-nav label[for=t3],#t4:focus-visible ~ .tab-nav label[for=t4]{outline:3px solid #fff;outline-offset:3px}
+.steps{display:grid;gap:1rem;counter-reset:s;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr))}
+.steps li{
+  counter-increment:s;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);
+  border-radius:var(--r-md);padding:1.2rem;font-size:.93rem;color:#DCE4F7;
+}
+.steps li::before{
+  content:counter(s);display:grid;place-items:center;width:32px;height:32px;border-radius:50%;
+  background:var(--orange);color:#fff;font-weight:800;margin-bottom:.7rem;
+}
+.steps b{display:block;color:#fff;margin-bottom:.2rem;font-size:1rem}
+.note{margin-top:1rem;font-size:.9rem;color:#B8C4E0;padding:.9rem 1.1rem;border-left:4px solid var(--orange);background:rgba(255,255,255,.05);border-radius:0 12px 12px 0}
+
+/* Planes y anuncios */
+.cards3{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr))}
+.plan{background:var(--surface);border:2px solid var(--line);border-radius:var(--r-lg);padding:1.8rem;position:relative}
+.plan.hot{border-color:var(--blue);box-shadow:var(--shadow)}
+.plan .flag{position:absolute;top:-13px;right:1.4rem;background:var(--orange);color:#fff;font-size:.75rem;font-weight:800;padding:.3rem .8rem;border-radius:999px}
+.plan h3{font-size:1.25rem}
+.plan .big{font-size:2.2rem;font-weight:800;letter-spacing:-.03em;margin:.4rem 0 1rem}
+.plan .big small{font-size:.9rem;font-weight:600;color:var(--ink-2)}
+.plan ul{display:grid;gap:.6rem;font-size:.93rem;color:var(--ink-2)}
+.plan li{display:flex;gap:.55rem}
+.plan li::before{content:"✓";color:var(--teal);font-weight:800}
+
+.ads{display:grid;gap:1.2rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr))}
+.ad{border-radius:var(--r-md);padding:1.4rem;color:#fff;display:flex;flex-direction:column;gap:.4rem;min-height:190px}
+.ad small{background:rgba(255,255,255,.22);padding:.25rem .65rem;border-radius:999px;font-weight:700;font-size:.72rem;align-self:flex-start}
+.ad h3{font-size:1.1rem;margin-top:.4rem}
+.ad p{font-size:.88rem;opacity:.92}
+.ad.x1{background:linear-gradient(135deg,#6D28D9,#A78BFA)}
+.ad.x2{background:linear-gradient(135deg,#059669,#34D399)}
+.ad.x3{background:linear-gradient(135deg,#F97316,#FDBA74)}
+.ad.x4{background:linear-gradient(135deg,var(--blue-dark),var(--blue))}
+
+/* =========================================================
+   9. PASOS DE INICIO
+   ========================================================= */
+.start-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:1.4rem;counter-reset:st}
+.start{text-align:center;padding:1.6rem 1.2rem;background:var(--surface);border-radius:var(--r-lg);border:1px solid var(--line);counter-increment:st}
+.start .circle{width:76px;height:76px;margin:0 auto 1rem;border-radius:50%;background:#E5F1FF;display:grid;place-items:center;font-size:2rem;position:relative}
+.start .circle::after{
+  content:counter(st);position:absolute;top:-4px;right:-4px;width:28px;height:28px;border-radius:50%;
+  background:var(--orange);color:#fff;font:800 .85rem/28px var(--font);text-align:center;
+}
+.start h3{font-size:1.1rem;margin-bottom:.3rem}
+.start p{font-size:.92rem;color:var(--ink-2)}
+
+/* =========================================================
+   10. FAQ
+   ========================================================= */
+.faq{max-width:760px;margin-inline:auto;display:grid;gap:.7rem}
+details{background:var(--surface);border:1px solid var(--line);border-radius:var(--r-md);padding:0 1.3rem}
+summary{cursor:pointer;list-style:none;padding:1.1rem 0;font-weight:700;display:flex;justify-content:space-between;gap:1rem}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"+";font-size:1.4rem;line-height:1;color:var(--blue);transition:transform .25s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding-bottom:1.2rem;color:var(--ink-2);font-size:.95rem}
+
+/* =========================================================
+   11. DESCARGA
+   ========================================================= */
+.download{padding:0 0 4.5rem}
+.dl-box{
+  background:linear-gradient(135deg,var(--navy),var(--navy-2));color:#fff;border-radius:var(--r-lg);
+  padding:clamp(2rem,6vw,4rem);display:grid;grid-template-columns:1.2fr .8fr;gap:2rem;align-items:center;
+  position:relative;overflow:hidden;
+}
+.dl-box::after{content:"";position:absolute;right:-80px;bottom:-120px;width:340px;height:340px;border-radius:50%;background:radial-gradient(circle,rgba(255,107,53,.5),transparent 70%)}
+.dl-box h2{color:#fff}
+.dl-box p{color:#C5D0EA;margin:.8rem 0 1.6rem}
+.req{display:grid;gap:.6rem;font-size:.9rem;color:#DCE4F7;position:relative;z-index:1}
+.req li{display:flex;gap:.6rem;background:rgba(255,255,255,.08);padding:.7rem 1rem;border-radius:14px}
+.req b{color:#fff}
+.dl-box > div{position:relative;z-index:1}
+@media (max-width:860px){.dl-box{grid-template-columns:1fr}}
+
+/* Barra fija de descarga en móvil */
+.sticky-dl{display:none}
+@media (max-width:860px){
+  .sticky-dl{
+    display:flex;position:fixed;left:12px;right:12px;bottom:max(12px,env(safe-area-inset-bottom));z-index:60;
+    animation:rise .8s 1.2s both;
+  }
+  .sticky-dl .btn{width:100%;box-shadow:0 14px 30px -8px rgba(0,122,255,.6)}
+  footer{padding-bottom:6rem}
+}
+
+/* =========================================================
+   12. FOOTER
+   ========================================================= */
+footer{background:var(--navy);color:#B8C4E0;padding:3rem 0 2rem;font-size:.9rem}
+.f-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:2rem;margin-bottom:2rem}
+footer .logo{color:#fff;margin-bottom:.8rem}
+footer h4{color:#fff;margin:0 0 .8rem;font-size:.95rem}
+footer li{margin-bottom:.45rem}
+footer a:hover{color:#fff}
+.legal{border-top:1px solid rgba(255,255,255,.12);padding-top:1.2rem;font-size:.82rem}
+@media (max-width:640px){.f-grid{grid-template-columns:1fr}}
+
+/* =========================================================
+   13. ANIMACIONES
+   ========================================================= */
+@keyframes rise{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:none}}
+@keyframes float{0%,100%{translate:0 0}50%{translate:0 -14px}}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(52,199,89,.6)}100%{box-shadow:0 0 0 10px rgba(52,199,89,0)}}
+@keyframes morph{
+  0%,100%{border-radius:42% 58% 55% 45%/48% 42% 58% 52%;transform:rotate(0)}
+  50%{border-radius:58% 42% 40% 60%/55% 55% 45% 45%;transform:rotate(8deg)}
+}
+
+/* Revelado al hacer scroll: solo CSS, solo donde el navegador lo soporta */
+@supports (animation-timeline:view()){
+  .reveal{animation:rise linear both;animation-timeline:view();animation-range:entry 0% entry 35%}
+}
+
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+
+<body>
+
+<div class="topbar">📍 <b>Al Lado</b> ya está disponible para Android · Descarga gratis</div>
+
+<header>
+  <div class="wrap nav">
+    <a href="#inicio" class="logo" aria-label="Al Lado, inicio">
+      <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#007AFF"/><path d="M32 11a15 15 0 0 0-15 15c0 11 15 27 15 27s15-16 15-27A15 15 0 0 0 32 11z" fill="#fff"/><circle cx="32" cy="26" r="6" fill="#FF6B35"/></svg>
+      Al Lado
+    </a>
+    <input type="checkbox" id="menu" class="menu-toggle" aria-label="Abrir menú">
+    <label for="menu" class="burger" aria-hidden="true"><span></span></label>
+    <nav class="links" aria-label="Principal">
+      <a href="#problemas">Por qué Al Lado</a>
+      <a href="#modulos">Funciones</a>
+      <a href="#flujos">Cómo funciona</a>
+      <a href="#faq">Preguntas</a>
+      <a href="#descargar" class="btn btn-primary">Descargar app</a>
+    </nav>
+  </div>
+</header>
+
+<main id="inicio">
+
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="pill"><i></i> Marketplace geolocalizado</span>
+      <h1>Compra y vende <em>al lado</em> de tu casa.</h1>
+      <p class="lead">Encuentra tiendas, productos y servicios cerca de ti, pide por WhatsApp y paga como ya acostumbras. Si vendes, abre tu tienda o promociona tu negocio en minutos.</p>
+      <div class="cta-row">
+        <a href="#descargar" class="btn btn-primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg>
+          Descargar app
+        </a>
+        <a href="#modulos" class="btn btn-ghost">Ver funciones</a>
+      </div>
+      <ul class="trust">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3 4 6v6c0 5 3.5 8 8 9 4.5-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/></svg>Tiendas verificadas</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s7-6 7-12a7 7 0 0 0-14 0c0 6 7 12 7 12z"/><circle cx="12" cy="9" r="2.5"/></svg>Resultados cercanos</li>
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 12h4l3-8 4 16 3-8h4"/></svg>Funciona sin conexión</li>
+      </ul>
+    </div>
+
+    <div class="stage" aria-hidden="true">
+      <div class="blob"></div>
+      <div class="chip a"><span class="dot b-green">✅</span><div>Pedido #1042<small>Confirmado por la tienda</small></div></div>
+      <div class="phone">
+        <div class="screen">
+          <div class="s-head"><small>Cerca de ti</small><strong>Productos cercanos</strong><div class="s-search">🔍 Buscar producto o tienda…</div></div>
+          <div class="s-body">
+            <div class="s-title">Tienda Demo · 0.8 km</div>
+            <div class="s-card"><div class="s-ico b-blue">🎧</div><div><b>Audífonos Bluetooth</b><span>12 disponibles</span></div><div class="s-price">$14.99</div></div>
+            <div class="s-card"><div class="s-ico b-orange">👟</div><div><b>Zapatillas urbanas</b><span>¡Se agota!</span></div><div class="s-price">$32.00</div></div>
+            <div class="s-ad"><b>Barbería El Corte</b>Corte + barba a mitad de precio</div>
+            <div class="s-card"><div class="s-ico b-green">☕</div><div><b>Café molido 500 g</b><span>20 disponibles</span></div><div class="s-price">$6.50</div></div>
+          </div>
+          <div class="s-nav"><span>🗺️</span><span>❤️</span><span>🏠</span><span>🏪</span><span>👤</span></div>
+        </div>
+      </div>
+      <div class="chip b"><span class="dot b-orange">💬</span><div>Pide por WhatsApp<small>Pago y entrega directos</small></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PROBLEMAS ================= -->
+<section class="problems" id="problemas">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Vender y comprar en el barrio no debería ser un laberinto</h2>
+      <p>Hoy todo depende de grupos de chat y del boca a boca. Al Lado ordena eso sin cambiar tus costumbres.</p>
+    </div>
+    <div class="p-grid">
+      <div class="p-item reveal"><div class="ico">👀</div><h3>Falta de visibilidad</h3><p>Tu tienda aparece en el mapa y en el feed de quien está cerca, no se pierde entre mensajes.</p></div>
+      <div class="p-item reveal"><div class="ico">🤝</div><h3>Poca confianza</h3><p>Tiendas aprobadas por un administrador, valoraciones con estrellas y ranking semanal.</p></div>
+      <div class="p-item reveal"><div class="ico">💱</div><h3>Dos monedas</h3><p>El vendedor publica en USD y tú alternas a CUP con la tasa del mercado, actualizada cada 12 horas.</p></div>
+      <div class="p-item reveal"><div class="ico">💳</div><h3>Pagos sin pasarela</h3><p>Transferencia a tarjeta MLC o CUP con QR, verificada por WhatsApp. No necesitas tarjeta internacional.</p></div>
+      <div class="p-item reveal"><div class="ico">📶</div><h3>Conexión inestable</h3><p>Lo que ya viste sigue disponible sin red y tus acciones se envían solas al reconectar.</p></div>
+      <div class="p-item reveal"><div class="ico">🏍️</div><h3>Ventas puntuales</h3><p>¿Una moto, una lavadora, una fiesta? Publica un anuncio sin montar una tienda.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= MÓDULOS ================= -->
+<section id="modulos">
+  <div class="wrap">
+    <div class="head center reveal">
+      <h2>Todo lo que hace la app, módulo a módulo</h2>
+      <p>Cada parte de Al Lado resuelve una tarea concreta.</p>
+    </div>
+    <div class="modules">
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-blue">🏠</span><h3>Inicio y búsqueda</h3></div>
+        <p>El feed te muestra lo mejor cerca de ti.</p>
+        <ul>
+          <li>Tiendas destacadas y populares de la semana.</li>
+          <li>Productos y tiendas cercanas ordenados por distancia.</li>
+          <li>Filtros por radio, precio, categoría, provincia y municipio.</li>
+        </ul>
+        <span class="tag">Para compradores</span>
+      </article>
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-teal">🗺️</span><h3>Mapa</h3></div>
+        <p>Mira dónde está cada tienda y negocio.</p>
+        <ul>
+          <li>Pines dorados para tiendas Premium y verdes para negocios.</li>
+          <li>Botón «Ubicarme» para centrar el mapa en ti.</li>
+          <li>Toca un pin para ver valoración y abrir la tienda.</li>
+        </ul>
+        <span class="tag">Para compradores</span>
+      </article>
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-orange">🛒</span><h3>Tienda y carrito</h3></div>
+        <p>Elige cantidades y arma tu pedido por tienda.</p>
+        <ul>
+          <li>Hasta 3 fotos por producto y aviso de «¡Últimas unidades!».</li>
+          <li>Precios en USD o CUP con un toque.</li>
+          <li>El stock se reserva en cuanto confirmas el pedido.</li>
+        </ul>
+        <span class="tag">Para compradores</span>
+      </article>
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-green">💬</span><h3>Pedidos y valoraciones</h3></div>
+        <p>Del carrito a WhatsApp, con seguimiento.</p>
+        <ul>
+          <li>Se abre WhatsApp con el detalle y tu número de pedido.</li>
+          <li>Sigue tus pedidos y cancela mientras estén pendientes.</li>
+          <li>Valora con estrellas, comentario y foto.</li>
+        </ul>
+        <span class="tag">Para compradores</span>
+      </article>
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-navy">🏪</span><h3>Panel del vendedor</h3></div>
+        <p>Gestiona tu tienda desde el teléfono.</p>
+        <ul>
+          <li>Agrega productos, fotos, stock y categoría.</li>
+          <li>Confirma o rechaza pedidos; el stock se devuelve solo.</li>
+          <li>Analíticas: ingresos, pedidos, ranking de productos e inventario.</li>
+        </ul>
+        <span class="tag">Para vendedores</span>
+      </article>
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-teal">✂️</span><h3>Negocios y eventos</h3></div>
+        <p>Barbería, taller, fiesta o rifa: sin carrito, con mini-página.</p>
+        <ul>
+          <li>Horario, dirección, lista de precios y botón de WhatsApp.</li>
+          <li>Aparece en el mapa y en el feed con un paquete de anuncio.</li>
+          <li>Paquete de 1 semana ideal para eventos puntuales.</li>
+        </ul>
+        <span class="tag">Para negocios</span>
+      </article>
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-yellow">📣</span><h3>Anuncios</h3></div>
+        <p>Cuatro formas de que te vean más.</p>
+        <ul>
+          <li>Potencia un producto o crea una promo de tienda.</li>
+          <li>Anuncio independiente para vender algo puntual.</li>
+          <li>Mide impresiones, clics y pausa cuando quieras.</li>
+        </ul>
+        <span class="tag">Para todos los que venden</span>
+      </article>
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-orange">🤝</span><h3>Programa de afiliados</h3></div>
+        <p>Gana comisión por recomendar Al Lado.</p>
+        <ul>
+          <li>Recibes un código único y permanente.</li>
+          <li>Quien lo usa obtiene 10 % de descuento en su plan.</li>
+          <li>Retiros desde 1 000 CUP, con tope diario de 10 000 CUP.</li>
+        </ul>
+        <span class="tag">Gana dinero</span>
+      </article>
+
+      <article class="mod reveal">
+        <div class="mod-top"><span class="badge b-blue">🔔</span><h3>Avisos y modo sin conexión</h3></div>
+        <p>Siempre al tanto, aunque falle la señal.</p>
+        <ul>
+          <li>Notificaciones push de pedidos, pagos y vencimientos.</li>
+          <li>Catálogos ya vistos disponibles sin internet.</li>
+          <li>Tema claro u oscuro.</li>
+        </ul>
+        <span class="tag">Incluido</span>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= FLUJOS ================= -->
+<section class="flows" id="flujos">
+  <div class="wrap">
+    <div class="head reveal">
+      <h2>Así funciona, paso a paso</h2>
+      <p>Elige el flujo que te interesa.</p>
+    </div>
+
+    <div class="tabs reveal">
+      <input type="radio" name="tab" id="t1" checked>
+      <input type="radio" name="tab" id="t2">
+      <input type="radio" name="tab" id="t3">
+      <input type="radio" name="tab" id="t4">
+
+      <div class="tab-nav" role="tablist">
+        <label for="t1">Comprar</label>
+        <label for="t2">Abrir tienda</label>
+        <label for="t3">Comprar un paquete</label>
+        <label for="t4">Ser afiliado</label>
+      </div>
+
+      <div class="panels">
+        <div class="panel" id="p1">
+          <ol class="steps">
+            <li><b>Explora</b>Busca por cercanía, categoría o nombre. No necesitas cuenta para mirar.</li>
+            <li><b>Agrega al carrito</b>Elige cantidades. Cada tienda tiene su propio carrito.</li>
+            <li><b>Completa la compra</b>Inicia sesión con Google. Tu pedido queda registrado y el stock reservado.</li>
+            <li><b>Habla con el vendedor</b>Se abre WhatsApp con tu pedido listo. Acuerdan pago y entrega.</li>
+            <li><b>Valora</b>Cuando el vendedor marca la venta, la app te invita a puntuarla.</li>
+          </ol>
+          <p class="note">Si el vendedor no responde, tu pedido pendiente se cancela solo a las 72 horas.</p>
+        </div>
+
+        <div class="panel" id="p2">
+          <ol class="steps">
+            <li><b>Datos y ubicación</b>Nombre, WhatsApp, categoría, provincia, municipio y punto GPS.</li>
+            <li><b>Elige plan</b>Gratis por 14 días (una vez por cuenta), Basic o Premium.</li>
+            <li><b>Paga</b>Transfiere a la tarjeta indicada. Puedes aplicar un código de afiliado.</li>
+            <li><b>Verifica</b>Toca «Verificar pago»: WhatsApp se abre con el mensaje listo. Adjunta la captura.</li>
+            <li><b>Activación</b>El administrador revisa y activa tu tienda. Recibes una notificación.</li>
+          </ol>
+          <p class="note">El plan gratis activa tu tienda al instante, sin pago. Te avisamos 5 y 3 días antes de que venza.</p>
+        </div>
+
+        <div class="panel" id="p3">
+          <ol class="steps">
+            <li><b>Elige paquete</b>Define duración, precio y cuántos anuncios simultáneos incluye.</li>
+            <li><b>Se registra tu compra</b>Recibes un código de referencia (por ejemplo AN-XXXX).</li>
+            <li><b>Transfiere</b>Usa la cuenta o el QR que se muestra y toma una captura.</li>
+            <li><b>Envía el comprobante</b>WhatsApp se abre con el código. Adjunta la captura.</li>
+            <li><b>Se activa solo</b>Al aprobarse el pago, tus ranuras se habilitan y te llega un aviso.</li>
+          </ol>
+          <p class="note">Las tiendas pueden sumar ranuras extra a las de su plan sin cambiar de plan.</p>
+        </div>
+
+        <div class="panel" id="p4">
+          <ol class="steps">
+            <li><b>Regístrate</b>Un formulario corto con tu nombre, teléfono y tarjeta.</li>
+            <li><b>Recibe tu código</b>Seis caracteres, únicos y tuyos para siempre.</li>
+            <li><b>Compártelo</b>Cada tienda nueva que lo use obtiene 10 % de descuento.</li>
+            <li><b>Gana comisión</b>Se acredita cuando el administrador aprueba esa tienda o plan.</li>
+            <li><b>Retira</b>Solicita tu retiro y coordina el pago por WhatsApp.</li>
+          </ol>
+          <p class="note">Si te das de baja y vuelves con la misma cuenta, recuperas tu código y tu saldo.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= PLANES ================= -->
+<section id="planes">
+  <div class="wrap">
+    <div class="head center reveal">
+      <h2>Planes para tu tienda</h2>
+      <p>Empieza gratis y crece cuando lo necesites. Los precios los define el administrador y se muestran en la app.</p>
+    </div>
+    <div class="cards3">
+      <div class="plan reveal">
+        <h3>Gratis</h3>
+        <div class="big">14 días</div>
+        <ul><li>Activación inmediata, sin pago</li><li>Una vez por cuenta</li><li>Ideal para probar la app</li></ul>
+      </div>
+      <div class="plan reveal">
+        <h3>Basic</h3>
+        <div class="big">Mensual</div>
+        <ul><li>Hasta 20 productos visibles</li><li>Aprobación del administrador</li><li>Ranuras de anuncio según plan</li></ul>
+      </div>
+      <div class="plan hot reveal">
+        <span class="flag">Más visibilidad</span>
+        <h3>Premium</h3>
+        <div class="big">Mensual</div>
+        <ul><li>Hasta 50 productos y 3 fotos cada uno</li><li>Distintivo VIP y pin dorado en el mapa</li><li>Elegible para Tiendas Destacadas</li></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= ANUNCIOS ================= -->
+<section id="anuncios" style="padding-top:0">
+  <div class="wrap">
+    <div class="head center reveal">
+      <h2>Anuncios con etiqueta clara</h2>
+      <p>Cada promoción indica quién la publica, para que sepas qué estás viendo.</p>
+    </div>
+    <div class="ads">
+      <div class="ad x1 reveal"><small>Promoción del Marketplace</small><h3>Admin</h3><p>Carrusel superior, hasta 5 anuncios rotativos.</p></div>
+      <div class="ad x2 reveal"><small>Negocio Patrocinado</small><h3>Negocios y eventos</h3><p>Con paquete vigente, tu negocio se promociona solo en el feed.</p></div>
+      <div class="ad x4 reveal"><small>Promoción Pagada</small><h3>Tiendas</h3><p>Potencia un producto o lanza una promo de tu tienda.</p></div>
+      <div class="ad x3 reveal"><small>Anuncio Independiente</small><h3>Vende algo puntual</h3><p>Sin tienda ni negocio, mientras tengas ranuras activas.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= EMPEZAR ================= -->
+<section id="empezar" style="padding-top:0">
+  <div class="wrap">
+    <div class="head center reveal"><h2>Empieza en 3 pasos</h2></div>
+    <div class="start-grid">
+      <div class="start reveal"><div class="circle">⬇️</div><h3>Descarga la app</h3><p>Instala el APK en tu teléfono Android.</p></div>
+      <div class="start reveal"><div class="circle">🔐</div><h3>Entra con Google</h3><p>Un toque. O explora primero sin cuenta.</p></div>
+      <div class="start reveal"><div class="circle">📍</div><h3>Mira lo que hay cerca</h3><p>Activa tu ubicación y empieza a comprar o vender.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= FAQ ================= -->
+<section id="faq" style="padding-top:0">
+  <div class="wrap">
+    <div class="head center reveal"><h2>Preguntas frecuentes</h2></div>
+    <div class="faq">
+      <details><summary>¿Necesito cuenta para ver la tienda?</summary><p>No. Puedes explorar libremente. Para comprar, guardar favoritos o vender, inicias sesión con Google.</p></details>
+      <details><summary>¿Cómo se paga?</summary><p>El pago de productos se coordina directo con el vendedor por WhatsApp. Los planes y paquetes se pagan por transferencia y se verifican por WhatsApp.</p></details>
+      <details><summary>¿Los precios están en dólares o pesos?</summary><p>Los vendedores publican en USD. Con el interruptor USD/CUP ves el precio convertido con la tasa del mercado, actualizada cada 12 horas.</p></details>
+      <details><summary>¿Funciona sin internet?</summary><p>Puedes navegar lo que ya cargaste. Algunas acciones del vendedor se guardan y se envían al volver la conexión. Pagar planes y paquetes sí requiere internet.</p></details>
+      <details><summary>¿Cuánto tarda en activarse mi tienda o paquete?</summary><p>El plan gratis es inmediato. En planes y paquetes de pago, el administrador revisa tu comprobante y recibes una notificación al aprobarse.</p></details>
+      <details><summary>¿Cómo gano dinero como afiliado?</summary><p>Compartes tu código. Cuando una tienda nueva lo usa y es aprobada, recibes comisión en CUP que puedes retirar desde 1 000 CUP.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DESCARGA ================= -->
+<section class="download" id="descargar">
+  <div class="wrap">
+    <div class="dl-box reveal">
+      <div>
+        <h2>Descarga Al Lado para Android</h2>
+        <p>Gratis. Instálala y descubre lo que tienes al lado.</p>
+        <!-- CAMBIA href por la ruta real de tu APK o enlace de Play Store -->
+        <a href="downloads/al-lado.apk" download class="btn btn-orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0 5-5m-5 5-5-5M5 21h14"/></svg>
+          Descargar APK
+        </a>
+      </div>
+      <ul class="req">
+        <li>📱 <span><b>Dispositivo:</b> teléfono Android</span></li>
+        <li>🔐 <span><b>Cuenta:</b> Google, para comprar o vender</span></li>
+        <li>📍 <span><b>Permiso:</b> ubicación, para ver lo cercano</span></li>
+        <li>🌐 <span><b>Internet:</b> para compras y pagos</span></li>
+      </ul>
+    </div>
+    <p style="text-align:center;margin-top:1rem;font-size:.85rem;color:var(--ink-2)">Si Android lo pide, permite la instalación desde este origen en Ajustes.</p>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="f-grid">
+      <div>
+        <a href="#inicio" class="logo">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><rect width="64" height="64" rx="18" fill="#007AFF"/><path d="M32 11a15 15 0 0 0-15 15c0 11 15 27 15 27s15-16 15-27A15 15 0 0 0 32 11z" fill="#fff"/><circle cx="32" cy="26" r="6" fill="#FF6B35"/></svg>
+          Al Lado
+        </a>
+        <p>El marketplace de tu barrio. Compra, vende y promociona cerca de ti.</p>
+      </div>
+      <div>
+        <h4>Explorar</h4>
+        <ul><li><a href="#modulos">Funciones</a></li><li><a href="#flujos">Cómo funciona</a></li><li><a href="#planes">Planes</a></li><li><a href="#faq">Preguntas</a></li></ul>
+      </div>
+      <div>
+        <h4>Contacto</h4>
+        <ul><li><a href="mailto:hola@allado.app">hola@allado.app</a></li><li><a href="#descargar">Descargar app</a></li></ul>
+      </div>
+    </div>
+    <div class="legal">© 2026 Al Lado. Todos los derechos reservados. · <a href="#">Términos</a> · <a href="#">Privacidad</a></div>
+  </div>
+</footer>
+
+<div class="sticky-dl"><a href="#descargar" class="btn btn-primary">Descargar app</a></div>
+
+</body>
+</html>

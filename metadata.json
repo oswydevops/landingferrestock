@@ -1,0 +1,6 @@
+{
+  "name": "FerreStock - Oficial",
+  "description": "Sitio oficial de descarga de FerreStock: software de escritorio 100% offline para gestión de IPV, control de inventario ferretero, punto de venta (TPV) y cierre de caja en CUP.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
