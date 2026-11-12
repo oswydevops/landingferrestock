@@ -30,7 +30,7 @@ import { FerreStockData } from '../../services/ferrestock-data';
             <!-- Título Principal de Alto Impacto -->
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-[1.08] text-balance">
               Tu inventario bajo control,
-              <span class="text-blue-600"> 100% sin internet, </span>
+              <span class="text-blue-600"> 100% sin Internet, </span>
               con ventas TPV y cierre de caja.
             </h1>
 
