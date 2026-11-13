@@ -87,7 +87,7 @@ import { MatIconModule } from '@angular/material/icon';
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-2">Licencias desde $4.99 USD</h3>
             <p class="text-sm text-slate-600 leading-relaxed">
-              Olvida las plataformas SaaS de $50 al mes. Elige entre una cuota mensual de solo $4.99 USD (al cambio en CUP o Clásica), una licencia anual con un ahorro del 20% o una licencia exclusiva a negociar.
+              Olvida las plataformas SaaS de $50 al mes. Elige entre una cuota mensual de solo $4.99 USD (al cambio en CUP o Clásica), una licencia anual con un ahorro del 50% o una licencia exclusiva a negociar.
             </p>
           </div>
         </div>

@@ -103,7 +103,7 @@ import { MatIconModule } from '@angular/material/icon';
                 <div class="flex items-baseline justify-between mb-2">
                   <span class="text-xs text-slate-500 font-medium">Precio:</span>
                   <div class="text-xl font-black text-slate-900 font-mono tracking-tight">
-                    $47.99<span class="text-xs font-sans font-bold text-slate-500">USD/anual</span>
+                    $29.99<span class="text-xs font-sans font-bold text-slate-500">USD/anual</span>
                   </div>
                 </div>
               </div>
