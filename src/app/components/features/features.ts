@@ -43,7 +43,7 @@ import { MatIconModule } from '@angular/material/icon';
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-2">Desglose de billetes por denominación</h3>
             <p class="text-sm text-slate-600 leading-relaxed">
-              Calculadora especializada por valor facial ($20,000 hasta $100 CUP). Ingresa la cantidad de piezas y el sistema cruza contra ventas en efectivo y transferencias EnZona/Transfermóvil.
+              Calculadora especializada por valor facial ($20,000 hasta $20 CUP). Ingresa la cantidad de piezas y el sistema cruza contra ventas en efectivo y transferencias EnZona/Transfermóvil.
             </p>
           </div>
 
@@ -65,7 +65,7 @@ import { MatIconModule } from '@angular/material/icon';
             </div>
             <h3 class="text-lg font-bold text-slate-900 mb-2">Mostrador vs Almacén</h3>
             <p class="text-sm text-slate-600 leading-relaxed">
-              Separa las existencias exhibidas para venta rápida de las reservas guardadas en almacén. Reabastece el mostrador sin perder el conteo total del negocio.
+              Separa las existencias de productos exhibidas para venta rápida de las reservas guardadas en almacén. Reabastece el mostrador sin perder el conteo total del negocio. Agrega productos de acuerdo al tipo de negocio que tengas: ferretería, tienda de ropa, bar, mipyme (comercio mixto), etc.
             </p>
           </div>
 
@@ -233,7 +233,7 @@ import { MatIconModule } from '@angular/material/icon';
               <ul class="space-y-2.5 text-xs text-slate-600">
                 <li class="flex items-start gap-2.5">
                   <mat-icon class="icon-xs text-emerald-500 shrink-0 mt-0.5">check_circle</mat-icon>
-                  <span class="leading-normal">Separación de existencias: Mostrador vs Almacén</span>
+                  <span class="leading-normal">Separación de productos: Mostrador vs Almacén</span>
                 </li>
                 <li class="flex items-start gap-2.5">
                   <mat-icon class="icon-xs text-emerald-500 shrink-0 mt-0.5">check_circle</mat-icon>
@@ -241,7 +241,7 @@ import { MatIconModule } from '@angular/material/icon';
                 </li>
                 <li class="flex items-start gap-2.5">
                   <mat-icon class="icon-xs text-emerald-500 shrink-0 mt-0.5">check_circle</mat-icon>
-                  <span class="leading-normal">Categorización de productos</span>
+                  <span class="leading-normal">Categorización de productos según el tipo de negocio</span>
                 </li>
               </ul>
             </div>

@@ -60,11 +60,11 @@ import { MatIconModule } from '@angular/material/icon';
               <ul class="space-y-2 text-xs text-slate-700">
                 <li class="flex items-start gap-2.5">
                   <mat-icon class="icon-xs text-emerald-500 shrink-0 mt-0.5">check_circle</mat-icon>
-                  <span class="leading-normal">Punto de Venta Rápido (TPV) </span>
+                  <span class="leading-normal">Incluye todas las funciones de la plataforma </span>
                 </li>
                 <li class="flex items-start gap-2.5">
                   <mat-icon class="icon-xs text-emerald-500 shrink-0 mt-0.5">check_circle</mat-icon>
-                  <span class="leading-normal">Registro de productos al catálogo</span>
+                  <span class="leading-normal">Soporte técnico 24h</span>
                 </li>
                 <li class="flex items-start gap-2.5">
                   <mat-icon class="icon-xs text-emerald-500 shrink-0 mt-0.5">check_circle</mat-icon>
@@ -73,6 +73,10 @@ import { MatIconModule } from '@angular/material/icon';
                 <li class="flex items-start gap-2.5">
                   <mat-icon class="icon-xs text-emerald-500 shrink-0 mt-0.5">check_circle</mat-icon>
                   <span class="leading-normal">Opciones de respaldo local</span>
+                </li>
+                <li class="flex items-start gap-2.5">
+                  <mat-icon class="icon-xs text-emerald-500 shrink-0 mt-0.5">check_circle</mat-icon>
+                  <span class="leading-normal">Acceso ilimitado a todas las actualizaciones</span>
                 </li>
               </ul>
             </div>
@@ -86,7 +90,7 @@ import { MatIconModule } from '@angular/material/icon';
           <!-- Tarjeta 2: Licencia Anual (NUEVA ENTRE LAS DOS) -->
           <div class="rounded-2xl p-5 bg-emerald-50/50 border-2 border-emerald-500/60 shadow-sm flex flex-col justify-between relative overflow-hidden">
             <div class="absolute top-0 right-0 bg-emerald-600 text-white text-[10px] font-bold px-3 py-0.5 rounded-bl-lg uppercase tracking-wider">
-              Anual · Ahorro
+              50% de descuento
             </div>
 
             <div>
@@ -105,6 +109,9 @@ import { MatIconModule } from '@angular/material/icon';
                   <div class="text-xl font-black text-slate-900 font-mono tracking-tight">
                     $29.99<span class="text-xs font-sans font-bold text-slate-500">USD/anual</span>
                   </div>
+                </div>
+                <div class="text-right text-[11px] text-slate-500 line-through">
+                  Precio original: $59.88 USD
                 </div>
               </div>
 
