@@ -79,7 +79,7 @@ export class Faq {
     {
       id: 'faq-5',
       question: '¿Cuáles son los tipos de licencias y facilidades de pago disponibles?',
-      answer: 'Ofrecemos tres modalidades adaptadas a tu negocio: 1) Licencia Mensual por 4.99 USD/mes para renovación flexible; 2) Licencia Anual por 53.99 USD/año con 12 meses de servicio continuo y ahorro garantizado; y 3) Licencia Exclusiva a negociar para cadenas o empresas que requieran módulos a medida y pago perpetuo. Incluye 7 días de prueba desde el primer día de uso de la plataforma.'
+      answer: 'Ofrecemos tres modalidades adaptadas a tu negocio: 1) Licencia Mensual por 4.99 USD/mes para renovación flexible; 2) Licencia Anual por 29.99 USD/año con 12 meses de servicio contínuo y ahorro garantizado; y 3) Licencia Exclusiva a negociar para cadenas o empresas que requieran módulos a medida y pago perpetuo. Incluye 14 días de prueba desde el primer día de uso de la plataforma.'
     },
     {
       id: 'faq-6',

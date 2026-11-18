@@ -69,8 +69,8 @@ import { FerreStockData } from '../../services/ferrestock-data';
                 <span>Cero caídas por internet</span>
               </div>
               <div class="flex items-center gap-2">
-                <mat-icon class="text-emerald-600 text-base">payments</mat-icon>
-                <span>Desglose de billetes CUP</span>
+                <mat-icon class="text-emerald-600 text-base">science</mat-icon>
+                <span>Prueba de 14 días</span>
               </div>
               <div class="flex items-center gap-2">
                 <mat-icon class="text-orange-500 text-base">verified</mat-icon>

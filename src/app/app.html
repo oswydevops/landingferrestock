@@ -1,1 +1,21 @@
 <router-outlet />
+
+@if (availableRelease(); as release) {
+  <aside class="release-toast" role="status" aria-live="polite">
+    <span class="release-toast__icon" aria-hidden="true">✨</span>
+    <span class="release-toast__message">
+      <strong>Nueva versión disponible</strong>
+      <span>FerreStock {{ release.tag_name }}</span>
+    </span>
+    <a class="release-toast__link" [href]="release.html_url" target="_blank" rel="noopener noreferrer">
+      Ver release
+    </a>
+    <button
+      class="release-toast__close"
+      type="button"
+      aria-label="Cerrar notificación"
+      (click)="dismissRelease()">
+      &times;
+    </button>
+  </aside>
+}

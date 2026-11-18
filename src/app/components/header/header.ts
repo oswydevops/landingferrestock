@@ -23,12 +23,23 @@ import { BrandLogo } from '../brand-logo/brand-logo';
           <a href="#faq" class="hover:text-blue-600 transition-colors whitespace-nowrap">FAQs</a>
         </nav>
 
-        <!-- Botón Menú Móvil -->
-        <div class="flex sm:hidden items-center">
+        <!-- Acciones de navegación -->
+        <div class="flex items-center gap-2">
+          <a
+            href="/Manual-de-Usuario-FerreStock.pdf"
+            download="Manual-de-Usuario-FerreStock.pdf"
+            class="hidden sm:inline-flex items-center gap-1.5 shrink-0 rounded-lg border border-slate-200 bg-white px-3 py-2 text-xs font-bold text-slate-700 shadow-sm hover:border-blue-300 hover:text-blue-700 hover:bg-blue-50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-600"
+            aria-label="Descargar manual de usuario en PDF"
+            title="Descargar manual de usuario">
+            <mat-icon class="icon-xs">picture_as_pdf</mat-icon>
+            <span class="whitespace-nowrap">Manual PDF</span>
+          </a>
+
+          <!-- Botón Menú Móvil -->
           <button
             type="button"
+            class="flex sm:hidden p-2 text-slate-700 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none"
             (click)="toggleMobileMenu()"
-            class="p-2 text-slate-700 hover:text-blue-600 hover:bg-slate-100 rounded-lg transition-colors focus:outline-none"
             [attr.aria-label]="isMobileMenuOpen() ? 'Cerrar menú de navegación' : 'Abrir menú de navegación'"
             [attr.aria-expanded]="isMobileMenuOpen()"
             aria-controls="mobile-navigation">
@@ -55,6 +66,14 @@ import { BrandLogo } from '../brand-logo/brand-logo';
             <a (click)="closeMobileMenu()" href="#licencia" class="block py-2 text-base font-semibold text-slate-700 hover:text-blue-600">Licencias & Precios</a>
             <a (click)="closeMobileMenu()" href="#requisitos" class="block py-2 text-base font-semibold text-slate-700 hover:text-blue-600">Requisitos del Sistema</a>
             <a (click)="closeMobileMenu()" href="#faq" class="block py-2 text-base font-semibold text-slate-700 hover:text-blue-600">Preguntas Frecuentes</a>
+            <a
+              (click)="closeMobileMenu()"
+              href="/Manual-de-Usuario-FerreStock.pdf"
+              download="Manual-de-Usuario-FerreStock.pdf"
+              class="mt-2 flex items-center justify-center gap-2 rounded-lg border border-blue-200 bg-blue-50 py-2.5 text-sm font-bold text-blue-700 hover:bg-blue-100">
+              <mat-icon class="icon-sm">picture_as_pdf</mat-icon>
+              Descargar manual PDF
+            </a>
           </nav>
         </div>
       </div>

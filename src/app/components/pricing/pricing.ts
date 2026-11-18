@@ -16,7 +16,7 @@ import { MatIconModule } from '@angular/material/icon';
             Licencias & Precios
           </h2>
           <p class="mt-2 text-sm sm:text-base text-slate-600 leading-relaxed text-pretty">
-            Estructura informativa de licencias para FerreStock. El software incluye 7 días de prueba gratuita al instalarlo.
+            Estructura informativa de licencias para FerreStock. El software incluye 14 días de prueba gratuita al instalarlo.
           </p>
         </div>
 

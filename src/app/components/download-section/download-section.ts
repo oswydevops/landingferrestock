@@ -74,7 +74,7 @@ import { MatIconModule } from '@angular/material/icon';
                   <span class="w-7 h-7 rounded-full bg-blue-600 text-white font-bold text-xs flex items-center justify-center shrink-0">2</span>
                   <div>
                     <strong class="text-white block mb-0.5">Instala e inicia tu prueba gratis</strong>
-                    <span>Ábrelo y comienza a registrar productos y ventas de inmediato con 7 días de prueba completa.</span>
+                    <span>Ábrelo y comienza a registrar productos y ventas de inmediato con 14 días de prueba completa.</span>
                   </div>
                 </li>
                 <li class="flex items-start gap-3">
@@ -89,7 +89,7 @@ import { MatIconModule } from '@angular/material/icon';
 
             <div class="mt-6 pt-4 border-t border-slate-700/80 flex items-center justify-between text-xs text-slate-400 font-mono">
               <span>Instalación: Inmediata</span>
-              <span class="text-blue-400">Prueba de 7 días activa</span>
+              <span class="text-blue-400">Prueba de 14 días activa</span>
             </div>
           </div>
 
